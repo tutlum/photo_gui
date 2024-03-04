@@ -1,0 +1,23 @@
+{
+    "countdown": 5,
+    "ftp": {
+        "server": "ftp-server",
+        "folder": "ftp-upoad-folder",
+        "username": "your_ftp_username",
+        "password": "your_ftp_password"
+    },
+    "publish": {
+        "url": "url of upload skript",
+        "username": "your_username",
+        "password": "your_password",
+        "image_prefix": "image_prefix",
+        "watermark": "assets/watermark.png",
+        "params": {
+            "event": "event-name",
+            "description": "Photobox",
+            "access": "personal",
+            "override": "false"
+        }
+    }
+
+}

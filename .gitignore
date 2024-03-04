@@ -1,0 +1,7 @@
+images/*
+upload/*
+gallery/*
+assets/watermark_*.png
+static_site/*
+__pycache__/
+config.json
