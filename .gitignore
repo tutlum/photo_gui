@@ -1,7 +1,10 @@
 images/*
 upload/*
 gallery/*
-assets/watermark_*.png
+assets/watermark*.png
+assets/wasserzeichen*.png
 static_site/*
 __pycache__/
 config.json
+*.otf
+log*

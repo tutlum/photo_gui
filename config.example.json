@@ -1,5 +1,18 @@
 {
+    "preview": {
+        "webcam_nr": 0,
+        "crop": 0.1,
+        "side_crop":0.078125,
+        "margin_x": 50,
+        "margin_y": 20
+    },
     "countdown": 5,
+    "delete_countdown": 5,
+    "font": "Arial",
+    "texts":{
+        "info": "Info",
+        "delete_info": "Dieses Bild wird bald gespeichert.\nDu kannst es jetzt löschen."
+    },
     "ftp": {
         "server": "ftp-server",
         "folder": "ftp-upoad-folder",
@@ -16,7 +29,8 @@
             "event": "event-name",
             "description": "Photobox",
             "access": "personal",
-            "override": "false"
+            "override": "false",
+            "notCryptPrivate": "true"
         }
     }
 
