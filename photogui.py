@@ -35,8 +35,8 @@ class GPhoto2GUI:
         if (not os.path.isdir("gallery")):
             os.mkdir("gallery")
         self.last_picture=None
-
-        self.capture_text=f"neues Foto machen\n({self.config["countdown"]}s Timer)"
+        countdown=self.config["countdown"]
+        self.capture_text=f"neues Foto machen\n({countdown}s Timer)"
 
         self.info_text=self.config["texts"]["info"]
         self.delete_info_text=self.config["texts"]["delete_info"]
@@ -158,7 +158,7 @@ class GPhoto2GUI:
     def capture_photo(self):
         logging.info("action: capture")
         filename = os.path.join("images", datetime.now().strftime("%d%H%M%S") + ".jpg")
-        command = ["gphoto2", "--capture-image", "--filename", filename ]
+        command = ["gphoto2", "--capture-image-and-download", "--filename", filename ]
         
         self.timer_label.config(text="lade ...")
         if self.live: output = self.run_command(command)
@@ -217,8 +217,9 @@ class GPhoto2GUI:
         if (self.last_picture!=None and os.path.isfile(self.last_picture)):
             lpg = self.last_picture.replace("/images/", "/gallery/")
             os.rename(self.last_picture, lpg)
-            p = multiprocessing.Process(target=to_website, args=(self.config, lpg))
-            p.start()
+            if (self.config["deploy"]=="Yes" and self.live):
+                p = multiprocessing.Process(target=to_website, args=(self.config, lpg))
+                p.start()
         self.clear_all()
     
     def clear_all(self):
@@ -248,6 +249,7 @@ class GPhoto2GUI:
         _, frame = self.vid.read() 
         # Convert image from one color space to other 
         opencv_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
+        opencv_image = cv2.flip(opencv_image,1)
         # height, width, _ = frame.shape
         # zoom_factor=self.config["preview"]["crop"]
         # crop_factor=self.config["preview"]["side_crop"]

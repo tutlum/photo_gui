@@ -13,7 +13,7 @@ if [ -n "$crop" ]; then
     convert "$path" $crop "$target"
     convert "$target" -resize ${size}x${size} -quality 89 "$target";
 else
-    convert "$path" "$crop" -resize ${size}x${size} -quality 89 "$target";
+    convert "$path" -resize ${size}x${size} -quality 89 "$target";
 fi
 if [ -n "$watermark" ]; then
     convert "$target" $watermark "$target"

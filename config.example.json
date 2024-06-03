@@ -13,6 +13,7 @@
         "info": "Info",
         "delete_info": "Dieses Bild wird bald gespeichert.\nDu kannst es jetzt löschen."
     },
+    "deploy":"No",
     "ftp": {
         "server": "ftp-server",
         "folder": "ftp-upoad-folder",
