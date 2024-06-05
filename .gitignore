@@ -6,5 +6,6 @@ assets/wasserzeichen*.png
 static_site/*
 __pycache__/
 config.json
+config-*.json
 *.otf
 log*

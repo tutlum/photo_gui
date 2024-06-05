@@ -1,5 +1,6 @@
 {
     "preview": {
+        "active": "Yes",
         "webcam_nr": 0,
         "crop": 0.1,
         "side_crop":0.078125,
@@ -9,6 +10,7 @@
     "countdown": 5,
     "delete_countdown": 5,
     "font": "Arial",
+    "font_size": "40",
     "texts":{
         "info": "Info",
         "delete_info": "Dieses Bild wird bald gespeichert.\nDu kannst es jetzt löschen."

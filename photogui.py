@@ -62,12 +62,13 @@ class GPhoto2GUI:
         if self.live: self.connect_camera() 
 
         font=self.config["font"]
+        font_size=int(self.config["font-size"])
 
         # Style for buttons
         style = ttk.Style()
-        style.configure('TButton', font=(font, 40), padding=(20,70,20,10), background='#EEEEEE', foreground='black', anchor="center", justify="center")
-        style.configure('TLabel', font=(font, 40), padding=(20,70,20,10), background='white', foreground='black', anchor="center", justify="center")
-        style.configure('Picture.TLabel', font=(font, 50), padding=0, background='white', foreground='black', anchor="top", justify="center")
+        style.configure('TButton', font=(font, font_size), padding=(20,70,20,10), background='#EEEEEE', foreground='black', anchor="center", justify="center")
+        style.configure('TLabel', font=(font, font_size), padding=(20,70,20,10), background='white', foreground='black', anchor="center", justify="center")
+        style.configure('Picture.TLabel', font=(font, int(font_size*1.25)), padding=0, background='white', foreground='black', anchor="top", justify="center")
         style.configure('.', background='white', foreground='black')
 
 
@@ -81,7 +82,7 @@ class GPhoto2GUI:
         self.delete_button.grid(row=2, column=2, sticky="ews")
         self.delete_button.config(state="disable")
         #self.delete_button.grid_forget()
-        self.explain=ttk.Label(root, text=self.info_text, font=(font, 40))
+        self.explain=ttk.Label(root, text=self.info_text, font=(font, font_size))
         self.explain.grid(row=2, column=1, columnspan=1, sticky="ewn")
 
         # Disconnect Button
@@ -89,19 +90,21 @@ class GPhoto2GUI:
         # self.disconnect_button.grid(row=0, column=2, sticky="ew")
 
          # Countdown timer
-        self.timer_label = ttk.Label(root, text="", font=(font, 80))
+        self.timer_label = ttk.Label(root, text="", font=(font, font_size*2))
         self.timer_label.grid(row=0, column=0, columnspan=3, sticky="ns")
+        self.timer_label.config(text="Drücke Button zum Aufnehmen")
 
         self.photo_label = ttk.Label(root,style='Picture.TLabel')
         self.photo_label.grid(row=1, column=1, columnspan=1, sticky="ewn")
 
 
         # preview
-        self.vid = cv2.VideoCapture(0) 
-        # Declare the width and height in variables 
-        #self.label_webcam = ttk.Label(root) 
-        #self.label_webcam.grid(rrow=1, column=0, columnspan=2, sticky="ns")
-        self.photo_label.after(50,self.start_webcam)
+        if (self.config["preview"]["active"]=="Yes"):
+            self.vid = cv2.VideoCapture(0) 
+            # Declare the width and height in variables 
+            #self.label_webcam = ttk.Label(root) 
+            #self.label_webcam.grid(rrow=1, column=0, columnspan=2, sticky="ns")
+            self.photo_label.after(50,self.start_webcam)
 
 
         # Bind space key to capture photo
@@ -225,7 +228,7 @@ class GPhoto2GUI:
     def clear_all(self):
         logging.info("action: clear")
         self.timer_count_hide=-1
-        self.timer_label.config(text="")
+        self.timer_label.config(text="Drücke Button zum Aufnehmen")
         self.photo_label.config(image=None)
         self.photo_label.image = None
         self.delete_button.config(state="disable")
@@ -233,7 +236,7 @@ class GPhoto2GUI:
         self.explain.config(text=self.info_text)
         self.setstatus("")
         self.last_picture=None
-        if (self.webcam!="on"):
+        if (self.webcam!="on" and self.config["preview"]["active"]=="Yes"):
             self.photo_label.after(50,self.start_webcam)
 
     def start_webcam(self):
